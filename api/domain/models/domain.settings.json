@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "domains",
+  "info": {
+    "name": "domain",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "url": {
+      "type": "string"
+    },
+    "company": {
+      "via": "domains",
+      "model": "company"
+    },
+    "users": {
+      "plugin": "users-permissions",
+      "collection": "user",
+      "via": "domains",
+      "dominant": true
+    },
+    "issues": {
+      "via": "domain",
+      "collection": "issues"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "url",
+      "required": true
+    }
+  }
+}
