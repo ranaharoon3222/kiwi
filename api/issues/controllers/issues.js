@@ -27,23 +27,23 @@ module.exports = {
       });
     }
 
-    let domains = await strapi.query("domain").find({
-      users: [user.id],
-    });
+    if (user) {
+      let domains = await strapi.query("domain").find({
+        users: [user.id],
+      });
 
-    let newEntites = [];
+      let newEntites = [];
 
-    entities.map((entity) => {
-      domains.map((domain) => {
-        domain.issues.map((issue) => {
-          if (entity.id === issue.id) {
-            return newEntites.push(entity);
-          }
+      entities.map((entity) => {
+        domains.map((domain) => {
+          domain.issues.map((issue) => {
+            if (entity.id === issue.id) {
+              return newEntites.push(entity);
+            }
+          });
         });
       });
-    });
 
-    if (user) {
       return newEntites.map((entity) =>
         sanitizeEntity(entity, { model: strapi.models.issues })
       );
